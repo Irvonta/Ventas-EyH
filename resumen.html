@@ -269,13 +269,13 @@ let productos = [];
 let clienteGuardado = localStorage.getItem("cliente") || "";
 document.getElementById("cliente").value = clienteGuardado;
 
-fetch("http://localhost:5016/api/productos")
-.then(res => res.json())
-.then(data => {
-
+fetch("https://apiferreteria.onrender.com/productos")
+  .then(res => res.json())
+  .then(data => {
     productos = data;
+    mostrarProductos(productos);
+  });
 
-});
 
 function guardarCarrito(){
 

@@ -6,15 +6,13 @@ const buscador = document.getElementById("busqueda");
 let carrito = [];
 let productos = [];
 
-fetch("http://localhost:5016/api/productos")
-.then(res => res.json())
-.then(data => {
-
+fetch("https://apiferreteria.onrender.com/productos")
+  .then(res => res.json())
+  .then(data => {
     productos = data;
-
     mostrarProductos(productos);
+  });
 
-});
 
 function mostrarProductos(lista){
 
