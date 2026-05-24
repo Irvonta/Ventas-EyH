@@ -6,7 +6,7 @@ const buscador = document.getElementById("busqueda");
 let carrito = [];
 let productos = [];
 
-fetch("https://apiferreteria.onrender.com/productos")
+fetch("https://apiferreteria.onrender.com/api/productos")
   .then(res => res.json())
   .then(data => {
     productos = data;
