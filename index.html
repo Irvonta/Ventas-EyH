@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ferretería</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <img src="img/logo.png" alt="Logo Empresa" class="logo">
+    </header>
+
+
+    <div class="topbar search-bar">
+        <input type="text" id="busqueda" placeholder="Buscar productos...">
+    </div>
+
+    <main>
+        <section id="productos"></section>
+
+        <aside id="carrito">
+            <h2>Carrito</h2>
+
+            <div class="cliente">
+                <label for="cliente">Cliente:</label>
+                <input type="text" id="cliente" placeholder="Ej. SRF">
+            </div>
+
+            <div id="carrito-items"></div>
+
+            <div class="subtotal">
+                 Subtotal: $<span id="subtotal">0</span>
+            </div>
+            <div class="iva">
+                 IVA (16%): $<span id="iva">0</span>
+            </div>
+            <div class="total">
+                Total: $<span id="total">0</span>
+            </div>
+
+
+            <button id="finalizar">
+                Finalizar pedido
+            </button>
+        </aside>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

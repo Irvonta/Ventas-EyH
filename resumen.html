@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<title>Resumen del Pedido</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<style>
+
+body{
+    background:#f5f5f5;
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.resumen-container{
+    width:95%;
+    max-width:1400px;
+    margin:auto;
+    padding:20px;
+}
+
+header{
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    margin-bottom:25px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.top-resumen{
+    display:flex;
+    gap:20px;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+#busqueda-resumen{
+    flex:1;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    font-size:18px;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+    outline:none;
+}
+
+#volver{
+    padding:15px 25px;
+    border:none;
+    background:#16a34a;
+    color:white;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+#resultados-busqueda{
+    background:white;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:30px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.resultado-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:10px;
+    border-bottom:1px solid #ddd;
+}
+
+.resultado-item img{
+    width:50px;
+    height:50px;
+    object-fit:contain;
+}
+
+.resultado-item input{
+    width:70px;
+    padding:5px;
+}
+
+.resultado-item button{
+    padding:8px 15px;
+    border:none;
+    background:#2563eb;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+#resumen-productos{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.card img{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    margin:auto;
+    display:block;
+}
+
+.card input{
+    width:80px;
+    padding:8px;
+    margin-top:10px;
+}
+
+.eliminar{
+    margin-top:10px;
+    background:red;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.total-final{
+    margin-top:40px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+#texto-pedido{
+    margin-top:30px;
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    white-space:pre-line;
+    font-size:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+#enviar-whatsapp{
+    margin-top:30px;
+    width:100%;
+    padding:18px;
+    border:none;
+    background:#25D366;
+    color:white;
+    font-size:20px;
+    border-radius:15px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+#enviar-whatsapp:hover{
+    opacity:.9;
+}
+
+.subtotal-final,
+.iva-final {
+    font-size: 1.2em;   
+    font-weight: bold; 
+    margin-top: 5px;
+}
+
+.total-final {
+    font-size: 2.0em;   
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.header-resumen {
+    display: flex;
+    justify-content: space-between; /* 👈 texto a la izquierda, logo a la derecha */
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.titulo-resumen {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin: 0;
+}
+
+.logo-resumen {
+    height: 150px;   
+}
+
+
+
+
+
+
+
+
+
+</style>
+
+</head>
+<body>
+
+<div class="resumen-container">
+
+   <div class="header-resumen">
+    <h1 class="titulo-resumen">Resumen del Pedido</h1>
+    <img src="img/logo.png" alt="Logo Empresa" class="logo-resumen">
+</div>
+
+<div class="cliente">
+  <label for="cliente">Cliente:</label>
+  <input type="text" id="cliente" placeholder="Ej. SRF">
+</div>
+
+    <div class="top-resumen">
+
+        <input
+            type="text"
+            id="busqueda-resumen"
+            placeholder="Buscar productos para agregar..."
+        >
+
+        <button id="volver">
+            Seguir comprando
+        </button>
+
+    </div>
+
+    <div id="resultados-busqueda"></div>
+
+    <div id="resumen-productos"></div>
+
+   <div class="subtotal-final">
+    Subtotal: $<span id="subtotal-final">0</span>
+</div>
+<div class="iva-final">
+    IVA (16%): $<span id="iva-final">0</span>
+</div>
+<div class="total-final">
+    Total: $<span id="total-final">0</span>
+</div>
+
+
+    <button id="enviar-whatsapp">
+        Enviar pedido por WhatsApp
+    </button>
+
+    <div id="texto-pedido"></div>
+
+</div>
+
+<script>
+
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+let productos = [];
+let clienteGuardado = localStorage.getItem("cliente") || "";
+document.getElementById("cliente").value = clienteGuardado;
+
+fetch("http://localhost:5016/api/productos")
+.then(res => res.json())
+.then(data => {
+
+    productos = data;
+
+});
+
+function guardarCarrito(){
+
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+localStorage.setItem("cliente", document.getElementById("cliente").value);
+
+}
+
+function renderResumen(){
+
+    const contenedor =
+        document.getElementById("resumen-productos");
+
+    const textoPedido =
+        document.getElementById("texto-pedido");
+
+    contenedor.innerHTML = "";
+    textoPedido.innerHTML = "";
+
+    let subtotal = 0;
+
+    carrito.forEach((item,index) => {
+
+        subtotal += item.precio * item.cantidad;
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        card.innerHTML = `
+
+            <img src="${item.imagen}"
+                 onerror="this.src='img/no-image.png'">
+
+            <h3>${item.descripcion}</h3>
+
+            <p>
+                Código: ${item.codigo}
+            </p>
+
+            <p>
+                Precio: $${item.precio}
+            </p>
+
+            <input
+                type="number"
+                min="1"
+                max="100"
+                value="${item.cantidad}"
+                onchange="cambiarCantidad('${item.codigo}',this.value)"
+            >
+
+            <h2>
+                $${(item.precio * item.cantidad).toFixed(2)}
+            </h2>
+
+            <button
+                class="eliminar"
+                onclick="eliminarProducto('${item.codigo}')"
+            >
+                Eliminar
+            </button>
+
+        `;
+
+        contenedor.appendChild(card);
+
+        textoPedido.innerHTML += `
+${index + 1}. ${item.descripcion}
+Código: ${item.codigo}
+Cantidad: ${item.cantidad}
+Precio: $${item.precio}
+
+`;
+    });
+
+    // 👇 cálculo de IVA y total
+    let iva = subtotal * 0.16;
+    let total = subtotal + iva;
+
+    // 👇 mostrar en los spans correspondientes
+    document.getElementById("subtotal-final").textContent = subtotal.toFixed(2);
+    document.getElementById("iva-final").textContent = iva.toFixed(2);
+    document.getElementById("total-final").textContent = total.toFixed(2);
+
+    guardarCarrito();
+}
+
+
+function cambiarCantidad(codigo,cantidad){
+
+    const producto = carrito.find(
+        x => x.codigo == codigo
+    );
+
+    producto.cantidad = parseInt(cantidad);
+
+    renderResumen();
+
+}
+
+function eliminarProducto(codigo){
+
+    carrito = carrito.filter(
+        x => x.codigo != codigo
+    );
+
+    renderResumen();
+
+}
+
+document.getElementById("volver")
+.addEventListener("click", () => {
+
+    window.location.href = "index.html";
+
+});
+
+document.getElementById("busqueda-resumen")
+.addEventListener("input", e => {
+
+    const texto = e.target.value.toLowerCase();
+
+    const resultados =
+        productos.filter(p =>
+
+            p.descripcion.toLowerCase().includes(texto) ||
+
+            p.codigo.toLowerCase().includes(texto)
+
+        ).slice(0,10);
+
+    const div =
+        document.getElementById("resultados-busqueda");
+
+    div.innerHTML = "";
+
+    resultados.forEach(prod => {
+
+        div.innerHTML += `
+
+            <div class="resultado-item">
+
+                <img src="${prod.imagen}"
+                     onerror="this.src='img/no-image.png'">
+
+                <div style="flex:1">
+
+                    <b>${prod.descripcion}</b>
+
+                    <br>
+
+                    ${prod.codigo}
+
+                </div>
+
+                <input
+                    type="number"
+                    value="1"
+                    min="1"
+                    id="cant-${prod.codigo}"
+                >
+
+                <button
+                    onclick="agregarDesdeResumen('${prod.codigo}')"
+                >
+                    Agregar
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+});
+
+function agregarDesdeResumen(codigo){
+
+    const producto = productos.find(
+        p => p.codigo == codigo
+    );
+
+    const cantidad = parseInt(
+        document.getElementById(`cant-${codigo}`).value
+    );
+
+    const existente = carrito.find(
+        x => x.codigo == codigo
+    );
+
+    if(existente){
+
+        existente.cantidad += cantidad;
+
+    }else{
+
+        carrito.push({
+            ...producto,
+            cantidad
+        });
+
+    }
+
+    renderResumen();
+
+}
+
+document.getElementById("enviar-whatsapp")
+.addEventListener("click", () => {
+
+    let mensaje =
+`Hola, quiero realizar el siguiente pedido:
+
+`;
+
+    carrito.forEach((item,index) => {
+
+        mensaje +=
+`${index + 1}. ${item.descripcion}
+Código: ${item.codigo}
+Cantidad: ${item.cantidad}
+Precio: $${item.precio}
+
+`;
+
+    });
+
+    const total = carrito.reduce(
+        (acc,item) => acc + (item.precio * item.cantidad),
+        0
+    );
+
+    mensaje += `TOTAL: $${total.toFixed(2)}`;
+
+    const telefono = "5218712453545";
+
+    const url =
+`https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+
+    window.open(url,"_blank");
+
+});
+
+renderResumen();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,323 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+}
+
+/* HEADER */
+
+header{
+    background:white;
+    padding:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+header h1{
+    text-align:center;
+}
+
+/* BARRA BUSQUEDA */
+
+.topbar{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    padding:25px;
+}
+
+#busqueda{
+    width:550px;
+    padding:16px 22px;
+    border:none;
+    border-radius:15px;
+    font-size:18px;
+    outline:none;
+    background:white;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+/* MAIN */
+
+main{
+    display:flex;
+    gap:20px;
+    padding:20px;
+}
+
+/* PRODUCTOS */
+
+#productos{
+    flex:1;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fill,minmax(260px,1fr));
+
+    gap:20px;
+}
+
+/* CARD */
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+.card img{
+    width:100%;
+    height:180px;
+    object-fit:contain;
+}
+
+.card h3{
+    margin-top:15px;
+    font-size:18px;
+    min-height:70px;
+}
+
+.codigo{
+    margin-top:8px;
+    color:#666;
+}
+
+.precio{
+    margin-top:10px;
+    font-size:28px;
+    font-weight:bold;
+    color:#16a34a;
+}
+
+/* CONTROLES */
+
+.controles{
+    margin-top:15px;
+}
+
+.controles label{
+    display:block;
+    margin-bottom:5px;
+}
+
+.controles input{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
+
+/* BOTON AGREGAR */
+
+.agregar{
+    width:100%;
+
+    margin-top:15px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.agregar:hover{
+    background:#1d4ed8;
+}
+
+/* CARRITO */
+
+#carrito{
+    width:360px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:20px;
+
+    height:90vh;
+
+    position:sticky;
+
+    top:15px;
+
+    overflow-y:auto;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+#carrito h2{
+    margin-bottom:20px;
+}
+
+/* ITEMS CARRITO */
+
+.carrito-item{
+    display:flex;
+    gap:12px;
+
+    padding-bottom:15px;
+    margin-bottom:15px;
+
+    border-bottom:1px solid #ddd;
+}
+
+.carrito-item img{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+}
+
+.carrito-item .info{
+    flex:1;
+}
+
+.carrito-item h4{
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.carrito-item p{
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.carrito-item input{
+    width:80px;
+
+    padding:6px;
+
+    border-radius:8px;
+
+    border:1px solid #ccc;
+}
+
+/* BOTON BASURA */
+
+.basura{
+    background:red;
+    color:white;
+
+    border:none;
+
+    width:35px;
+    height:35px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+}
+
+/* TOTAL */
+
+.total{
+    font-size:28px;
+    font-weight:bold;
+
+    margin-top:20px;
+}
+
+/* BOTON FINALIZAR */
+
+#finalizar{
+    width:100%;
+
+    margin-top:20px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#16a34a;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+#finalizar:hover{
+    background:#15803d;
+}
+
+
+#enviar-whatsapp{
+    width:100%;
+    padding:15px;
+    background:#25D366;
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-size:18px;
+    cursor:pointer;
+    margin-top:20px;
+    font-weight:bold;
+}
+
+#enviar-whatsapp:hover{
+    background:#1ebe5d;
+}
+
+
+
+.search-bar {
+  position: sticky;  
+  top: 0;            
+  z-index: 1000;     
+  background: white;  
+  padding: 10px;
+}
+
+.logo {
+    height: 150px;
+    display: block;
+    margin: auto;
+}
+
+.subtotal,
+.iva {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.total {
+    font-size: 2.0em;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+
