@@ -9,15 +9,15 @@ body{
     background:#f5f5f5;
 }
 
-/* HEADER */
+
 
 header{
     background:white;
     padding:20px;
     box-shadow:0 2px 10px rgba(0,0,0,.08);
     position:sticky;
-    top:0;
-    z-index:100;
+    top:0;    
+    z-index: 1000;    
 }
 
 header h1{
@@ -172,6 +172,10 @@ main{
     overflow-y:auto;
 
     box-shadow:0 4px 15px rgba(0,0,0,.08);
+    position: fixed;
+    right: 20px;        
+    top: 100px;         
+    width: 300px;   
 }
 
 #carrito h2{
@@ -321,3 +325,9 @@ main{
 }
 
 
+header {
+  position: sticky;   /* 👈 se queda pegado */
+  top: 0;             /* 👈 siempre arriba */
+  z-index: 1000;      /* 👈 por encima de todo */
+  background: white;  /* 👈 fondo sólido */
+}
