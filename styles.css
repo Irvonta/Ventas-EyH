@@ -154,29 +154,18 @@ main{
 
 /* CARRITO */
 
-#carrito{
-    width:360px;
-
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius:20px;
-
-    padding:15px;
-
-    height:90vh;
-
-    position:fixed;
-
-    top:15px;
-    z-index: 1500;       
-    overflow-y:auto;
-
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-    position: fixed;
-    right: 20px;        
-    top: 80px;         
-    width: 300px;   
+#carrito {
+  position: fixed;
+  right: 20px;          /* margen derecho */
+  top: 80px;            /* debajo del logo */
+  width: 260px;         /* 👈 más angosto */
+  background: #fff;     /* fondo sólido */
+  border: 1px solid #ccc;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 1500;
 }
+
 
 #carrito h2{
     margin-bottom:20px;
@@ -296,12 +285,23 @@ main{
 
 
 
+
 .search-bar {
-  position: sticky;  
-  top: 0;            
-  z-index: 1000;     
-  background: white;  
-  padding: 10px;
+  background: transparent;   /* 👈 elimina el fondo blanco */
+  border: none;              /* 👈 quita el borde */
+  box-shadow: none;          /* 👈 quita sombra si la tenía */
+  position: absolute;        /* 👈 flotando sobre el contenido */
+  top: 20px;                 /* 👈 ajusta posición vertical */
+  left: 50%;                 /* 👈 centrado horizontal */
+  transform: translateX(-50%);
+  z-index: 2000;             /* 👈 encima de todo */
+}
+
+.search-bar input {
+  background: white;         /* 👈 solo el campo de texto tiene fondo */
+  border: 1px solid #ccc;    /* 👈 borde ligero para distinguir */
+  padding: 8px 12px;
+  border-radius: 4px;
 }
 
 .logo {
