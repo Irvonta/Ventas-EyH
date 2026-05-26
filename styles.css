@@ -301,7 +301,7 @@ main{
 
 /* Logo grande y pegado a la izquierda */
 .topbar .logo img {
-  height: 100px;   /* 👈 más grande */
+  height: 170px;   /* 👈 más grande */
   display: block;
 }
 
@@ -316,7 +316,7 @@ main{
   width: 300px;             /* 👈 ancho fijo, la mitad de lo que tenías */
   min-width: 250px;         /* 👈 tamaño mínimo para pantallas pequeñas */
   padding: 8px 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc18;
   border-radius: 4px;
 }
 
@@ -328,7 +328,7 @@ main{
 .carrito-icono button {
   background: none;
   border: none;
-  font-size: 28px;
+  font-size: 50px;
   cursor: pointer;
 }
 
@@ -379,17 +379,17 @@ main{
 
 
 
-/* Contenedor del popup */
 #carrito-popup {
-  width: 350px;          /* 👈 ancho fijo del carrito */
+  width: 350px;
   background: #fff;
   border: 1px solid #ccc;
-  position: fixed;       /* 👈 se mantiene flotante */
-  right: 20px;           /* 👈 pegado a la derecha */
-  top: 80px;             /* 👈 debajo de la barra */
-  display: none;         /* 👈 se muestra al dar click */
+  position: fixed;
+  right: 20px;
+  top: 180px;   /* 👈 lo bajamos un poco */
+  display: none;
   flex-direction: column;
 }
+
 
 /* Área de items con scroll */
 #carrito-items {
@@ -408,4 +408,54 @@ main{
   padding: 10px;
   border: none;
   cursor: pointer;
+}
+
+
+
+
+
+/* Estilos para pantallas pequeñas (celulares) */
+@media (max-width: 600px) {
+  .topbar {
+    flex-direction: column;   /* logo, buscador y carrito uno debajo del otro */
+    align-items: center;
+    padding: 10px;
+  }
+
+  .topbar .logo img {
+    height: 100px;            /* 👈 logo más pequeño en móvil */
+  }
+
+  .search input {
+    width: 90%;               /* 👈 buscador ocupa casi todo el ancho */
+    min-width: unset;
+  }
+
+  .carrito-icono button {
+    font-size: 36px;          /* 👈 carrito más grande en móvil */
+  }
+
+  #carrito-popup {
+    width: 95%;               /* 👈 carrito ocupa casi toda la pantalla */
+    right: 2.5%;              /* 👈 centrado */
+    top: 70px;
+  }
+
+  #carrito-items {
+    max-height: 50vh;         /* 👈 scroll más corto para que no tape todo */
+  }
+
+  #finalizar {
+    font-size: 18px;          /* 👈 botón más grande y legible */
+    padding: 12px;
+  }
+
+  .card {
+    width: 100%;              /* 👈 cada producto ocupa todo el ancho */
+    margin-bottom: 15px;
+  }
+
+  .card img {
+    max-width: 100px;         /* 👈 imágenes más pequeñas para no desbordar */
+  }
 }
