@@ -6,13 +6,21 @@ const buscador = document.getElementById("busqueda");
 let carrito = [];
 let productos = [];
 
+// 👇 Al cargar la página, recuperar carrito guardado
+window.addEventListener("DOMContentLoaded", () => {
+  const guardado = localStorage.getItem("carrito");
+  if (guardado) {
+    carrito = JSON.parse(guardado);
+    renderCarrito();
+  }
+});
+
 fetch("https://apiferreteria.onrender.com/api/productos")
   .then(res => res.json())
   .then(data => {
     productos = data;
     mostrarProductos(productos);
   });
-
 
 function mostrarProductos(lista) {
   productosDiv.innerHTML = "";
@@ -21,14 +29,12 @@ function mostrarProductos(lista) {
     const card = document.createElement("div");
     card.className = "card";
 
-    // 👇 ruta dinámica: img/categoria/codigo.png
     card.innerHTML = `
       <img 
-  src="img/${producto.categoria}/${producto.codigo}.png" 
-  alt="${producto.descripcion}"
-  onerror="this.onerror=null; this.src='img/no-image.png';"
->
-
+        src="img/${producto.categoria}/${producto.codigo}.png" 
+        alt="${producto.descripcion}"
+        onerror="this.onerror=null; this.src='img/no-image.png';"
+      >
 
       <h3>${producto.descripcion}</h3>
       <p class="codigo">Código: ${producto.codigo}</p>
@@ -57,35 +63,25 @@ function mostrarProductos(lista) {
   });
 }
 
-function agregarCarrito(codigo){
+function agregarCarrito(codigo) {
+  const producto = productos.find(p => p.codigo == codigo);
+  const cantidad = parseInt(document.getElementById(`cantidad-${codigo}`).value);
 
-    const producto = productos.find(
-        p => p.codigo == codigo
-    );
+  const existente = carrito.find(p => p.codigo == codigo);
 
-    const cantidad = parseInt(
-        document.getElementById(`cantidad-${codigo}`).value
-    );
+  if (existente) {
+    existente.cantidad += cantidad;
+  } else {
+    carrito.push({
+      ...producto,
+      cantidad
+    });
+  }
 
-    const existente = carrito.find(
-        p => p.codigo == codigo
-    );
+  // 👇 guardar carrito en localStorage
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 
-    if(existente){
-
-        existente.cantidad += cantidad;
-
-    }else{
-
-        carrito.push({
-            ...producto,
-            cantidad
-        });
-
-    }
-
-    renderCarrito();
-
+  renderCarrito();
 }
 
 function renderCarrito() {
@@ -100,11 +96,10 @@ function renderCarrito() {
 
     div.innerHTML = `
       <img 
-  src="img/${producto.categoria}/${producto.codigo}.png" 
-  alt="${producto.descripcion}"
-  onerror="this.onerror=null; this.src='img/no-image.png';"
->
-
+        src="img/${item.categoria}/${item.codigo}.png" 
+        alt="${item.descripcion}"
+        onerror="this.onerror=null; this.src='img/no-image.png';"
+      >
 
       <div class="info">
         <h4>${item.descripcion}</h4>
@@ -138,65 +133,43 @@ function renderCarrito() {
   document.getElementById("iva").textContent = iva.toFixed(2);
   document.getElementById("total").textContent = total.toFixed(2);
 
-
-
-    const count = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+  const count = carrito.reduce((acc, item) => acc + item.cantidad, 0);
   document.getElementById("carrito-count").textContent = count;
 }
 
+function eliminarProducto(codigo) {
+  carrito = carrito.filter(x => x.codigo !== codigo);
 
-function eliminarProducto(codigo){
+  // actualizar localStorage
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 
-    carrito = carrito.filter(
-        x => x.codigo !== codigo
-    );
-
-    renderCarrito();
-
+  renderCarrito();
 }
 
-function cambiarCantidad(codigo, cantidad){
+function cambiarCantidad(codigo, cantidad) {
+  const producto = carrito.find(x => x.codigo === codigo);
+  producto.cantidad = parseInt(cantidad);
 
-    const producto = carrito.find(
-        x => x.codigo === codigo
-    );
+  // actualizar localStorage
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 
-    producto.cantidad = parseInt(cantidad);
-
-    renderCarrito();
-
+  renderCarrito();
 }
 
 buscador.addEventListener("input", () => {
-
-    const texto = buscador.value.toLowerCase();
-
-    const filtrados = productos.filter(p =>
-
-        p.descripcion.toLowerCase().includes(texto) ||
-        p.codigo.toLowerCase().includes(texto)
-
-    );
-
-    mostrarProductos(filtrados);
-
+  const texto = buscador.value.toLowerCase();
+  const filtrados = productos.filter(p =>
+    p.descripcion.toLowerCase().includes(texto) ||
+    p.codigo.toLowerCase().includes(texto)
+  );
+  mostrarProductos(filtrados);
 });
 
 const finalizarBtn = document.getElementById("finalizar");
-
 finalizarBtn.addEventListener("click", () => {
-
-    localStorage.setItem(
-        "carrito",
-        JSON.stringify(carrito)
-    );
-
-    window.location.href = "resumen.html";
-
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  window.location.href = "resumen.html";
 });
-
-
-
 
 const btnCarrito = document.getElementById('btnCarrito');
 const carritoPopup = document.getElementById('carrito-popup');

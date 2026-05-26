@@ -374,3 +374,38 @@ main{
   font-weight: bold;
   margin-top: 10px;
 }
+
+
+
+
+
+/* Contenedor del popup */
+#carrito-popup {
+  width: 350px;          /* 👈 ancho fijo del carrito */
+  background: #fff;
+  border: 1px solid #ccc;
+  position: fixed;       /* 👈 se mantiene flotante */
+  right: 20px;           /* 👈 pegado a la derecha */
+  top: 80px;             /* 👈 debajo de la barra */
+  display: none;         /* 👈 se muestra al dar click */
+  flex-direction: column;
+}
+
+/* Área de items con scroll */
+#carrito-items {
+  max-height: 60vh;      /* 👈 altura máxima */
+  overflow-y: auto;      /* 👈 scroll interno */
+  padding: 10px;
+}
+
+/* Botón Finalizar fijo abajo */
+#finalizar {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
