@@ -14,61 +14,47 @@ fetch("https://apiferreteria.onrender.com/api/productos")
   });
 
 
-function mostrarProductos(lista){
+function mostrarProductos(lista) {
+  productosDiv.innerHTML = "";
 
-    productosDiv.innerHTML = "";
+  lista.forEach(producto => {
+    const card = document.createElement("div");
+    card.className = "card";
 
-    lista.forEach(producto => {
+    // 👇 ruta dinámica: img/categoria/codigo.png
+    card.innerHTML = `
+      <img 
+  src="img/${producto.categoria}/${producto.codigo}.png" 
+  alt="${producto.descripcion}"
+  onerror="this.onerror=null; this.src='img/no-image.png';"
+>
 
-        const card = document.createElement("div");
 
-        card.className = "card";
+      <h3>${producto.descripcion}</h3>
+      <p class="codigo">Código: ${producto.codigo}</p>
+      <p class="precio">$${producto.precio}</p>
 
-        card.innerHTML = `
+      <div class="controles">
+        <label>Cantidad:</label>
+        <input
+          type="number"
+          min="1"
+          max="100"
+          value="1"
+          id="cantidad-${producto.codigo}"
+        >
+      </div>
 
-            <img 
-                src="${producto.imagen}" 
-                alt=""
-                onerror="this.src='img/no-image.png'"
-            >
+      <button 
+        class="agregar"
+        onclick="agregarCarrito('${producto.codigo}')"
+      >
+        Agregar
+      </button>
+    `;
 
-            <h3>${producto.descripcion}</h3>
-
-            <p class="codigo">
-                Código: ${producto.codigo}
-            </p>
-
-            <p class="precio">
-                $${producto.precio}
-            </p>
-
-            <div class="controles">
-
-                <label>Cantidad:</label>
-
-                <input
-                    type="number"
-                    min="1"
-                    max="100"
-                    value="1"
-                    id="cantidad-${producto.codigo}"
-                >
-
-            </div>
-
-            <button 
-                class="agregar"
-                onclick="agregarCarrito('${producto.codigo}')"
-            >
-                Agregar
-            </button>
-
-        `;
-
-        productosDiv.appendChild(card);
-
-    });
-
+    productosDiv.appendChild(card);
+  });
 }
 
 function agregarCarrito(codigo){
@@ -102,66 +88,60 @@ function agregarCarrito(codigo){
 
 }
 
-function renderCarrito(){
+function renderCarrito() {
+  carritoDiv.innerHTML = "";
+  let subtotal = 0;
 
-    carritoDiv.innerHTML = "";
+  carrito.forEach(item => {
+    subtotal += item.precio * item.cantidad;
 
-    let subtotal = 0;
+    const div = document.createElement("div");
+    div.className = "carrito-item";
 
-    carrito.forEach(item => {
+    div.innerHTML = `
+      <img 
+  src="img/${producto.categoria}/${producto.codigo}.png" 
+  alt="${producto.descripcion}"
+  onerror="this.onerror=null; this.src='img/no-image.png';"
+>
 
-        subtotal += item.precio * item.cantidad;
 
-        const div = document.createElement("div");
+      <div class="info">
+        <h4>${item.descripcion}</h4>
+        <p>Código: ${item.codigo}</p>
+        <p>$${item.precio}</p>
 
-        div.className = "carrito-item";
+        <input
+          type="number"
+          min="1"
+          max="100"
+          value="${item.cantidad}"
+          onchange="cambiarCantidad('${item.codigo}', this.value)"
+        >
+      </div>
 
-        div.innerHTML = `
+      <button
+        class="basura"
+        onclick="eliminarProducto('${item.codigo}')"
+      >
+        🗑
+      </button>
+    `;
 
-            <img 
-                src="${item.imagen}"
-                onerror="this.src='img/no-image.png'"
-            >
+    carritoDiv.appendChild(div);
+  });
 
-            <div class="info">
+  let iva = subtotal * 0.16;
+  let total = subtotal + iva;
 
-                <h4>${item.descripcion}</h4>
+  document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+  document.getElementById("iva").textContent = iva.toFixed(2);
+  document.getElementById("total").textContent = total.toFixed(2);
 
-                <p>Código: ${item.codigo}</p>
 
-                <p>$${item.precio}</p>
 
-                <input
-                    type="number"
-                    min="1"
-                    max="100"
-                    value="${item.cantidad}"
-                    onchange="cambiarCantidad('${item.codigo}', this.value)"
-                >
-
-            </div>
-
-            <button
-                class="basura"
-                onclick="eliminarProducto('${item.codigo}')"
-            >
-                🗑
-            </button>
-
-        `;
-
-        carritoDiv.appendChild(div);
-
-    });
-
-    // 👇 cálculo de IVA y total
-    let iva = subtotal * 0.16;
-    let total = subtotal + iva;
-
-    // 👇 mostrar en los spans correspondientes
-    document.getElementById("subtotal").textContent = subtotal.toFixed(2);
-    document.getElementById("iva").textContent = iva.toFixed(2);
-    document.getElementById("total").textContent = total.toFixed(2);
+    const count = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+  document.getElementById("carrito-count").textContent = count;
 }
 
 
@@ -213,4 +193,15 @@ finalizarBtn.addEventListener("click", () => {
 
     window.location.href = "resumen.html";
 
+});
+
+
+
+
+const btnCarrito = document.getElementById('btnCarrito');
+const carritoPopup = document.getElementById('carrito-popup');
+
+btnCarrito.addEventListener('click', () => {
+  carritoPopup.style.display = 
+    carritoPopup.style.display === 'block' ? 'none' : 'block';
 });

@@ -7,46 +7,38 @@
 </head>
 <body>
 
-    <header>
-        <img src="img/logo.png" alt="Logo" class="logo-header">
-    </header>
+<header class="topbar">
+  <!-- Logo izquierda -->
+  <div class="logo">
+    <img src="img/logo.png" alt="Logo Empresa">
+  </div>
+  
+  <!-- Buscador centro -->
+  <div class="search">
+    <input type="text" id="busqueda" placeholder="Buscar productos...">
+  </div>
+  
+  <!-- Carrito derecha con contador -->
+  <div class="carrito-icono">
+    <button id="btnCarrito">🛒</button>
+    <span id="carrito-count">0</span>
+  </div>
+</header>
 
+<!-- Popup del carrito -->
+<div id="carrito-popup" class="carrito-popup">
+  <h3>Carrito de compra</h3>
+  <div id="carrito-items"></div>
+  <div class="subtotal">Subtotal: $<span id="subtotal">0</span></div>
+  <div class="iva">IVA (16%): $<span id="iva">0</span></div>
+  <div class="total">Total: $<span id="total">0</span></div>
+  <button id="finalizar">Finalizar pedido</button>
+</div>
 
+<main>
+    <section id="productos"></section>
+</main>
 
-    <div class="topbar search-bar">
-        <input type="text" id="busqueda" placeholder="Buscar productos...">
-    </div>
-
-    <main>
-        <section id="productos"></section>
-
-        <aside id="carrito">
-            <h2>Carrito</h2>
-
-            <div class="cliente">
-                <label for="cliente">Cliente:</label>
-                <input type="text" id="cliente" placeholder="Ej. SRF">
-            </div>
-
-            <div id="carrito-items"></div>
-
-            <div class="subtotal">
-                 Subtotal: $<span id="subtotal">0</span>
-            </div>
-            <div class="iva">
-                 IVA (16%): $<span id="iva">0</span>
-            </div>
-            <div class="total">
-                Total: $<span id="total">0</span>
-            </div>
-
-
-            <button id="finalizar">
-                Finalizar pedido
-            </button>
-        </aside>
-    </main>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

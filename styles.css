@@ -85,6 +85,8 @@ main{
     width:100%;
     height:180px;
     object-fit:contain;
+    display:block;
+    margin:0 auto;
 }
 
 .card h3{
@@ -284,62 +286,91 @@ main{
 }
 
 
-
-
-.search-bar {
-  background: transparent;   /* 👈 elimina el fondo blanco */
-  border: none;              /* 👈 quita el borde */
-  box-shadow: none;          /* 👈 quita sombra si la tenía */
-  position: absolute;        /* 👈 flotando sobre el contenido */
-  top: 20px;                 /* 👈 ajusta posición vertical */
-  left: 50%;                 /* 👈 centrado horizontal */
-  transform: translateX(-50%);
-  z-index: 2000;             /* 👈 encima de todo */
+/* Barra superior */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* logo izquierda, carrito derecha */
+  background: #cecece;            /* color naranja estilo FIX */
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.search-bar input {
-  background: white;         /* 👈 solo el campo de texto tiene fondo */
-  border: 1px solid #ccc;    /* 👈 borde ligero para distinguir */
+/* Logo grande y pegado a la izquierda */
+.topbar .logo img {
+  height: 100px;   /* 👈 más grande */
+  display: block;
+}
+
+/* Buscador centrado con ancho fijo */
+.search {
+  flex: 1;                  /* ocupa espacio central */
+  display: flex;
+  justify-content: center;  /* centra el input */
+}
+
+.search input {
+  width: 300px;             /* 👈 ancho fijo, la mitad de lo que tenías */
+  min-width: 250px;         /* 👈 tamaño mínimo para pantallas pequeñas */
   padding: 8px 12px;
+  border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.logo {
-    height: 150px;
-    display: block;
-    margin: auto;
+/* Carrito a la derecha con contador */
+.carrito-icono {
+  position: relative;
 }
 
-.subtotal,
-.iva {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-top: 5px;
+.carrito-icono button {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
 }
 
-.total {
-    font-size: 2.0em;
-    font-weight: bold;
-    margin-top: 10px;
+#carrito-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: red;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 6px;
 }
 
-
-header {
-  position: sticky;   /* 👈 se queda pegado */
-  top: 0;             /* 👈 siempre arriba */
-  z-index: 1000;      /* 👈 por encima de todo */
-  background: white;  /* 👈 fondo sólido */
+/* Carrito emergente (popup) */
+.carrito-popup {
+  position: fixed;
+  right: 20px;
+  top: 80px;
+  width: 320px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  display: none;        /* oculto por defecto */
+  z-index: 2500;
 }
 
+.carrito-popup h3 {
+  margin-top: 0;
+}
 
+.carrito-popup .subtotal,
+.carrito-popup .iva {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 5px;
+}
 
-
-
-
-.logo-header {
-  position: absolute;   /* 👈 esquina fija */
-  top: 10px;
-  left: 10px;
-  height: 60px;         /* ajusta tamaño */
-  z-index: 2000;        /* encima de todo */
+.carrito-popup .total {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-top: 10px;
 }
