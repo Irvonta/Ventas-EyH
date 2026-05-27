@@ -1,3 +1,10 @@
+html,
+body{
+
+    width:100%;
+
+    overflow-x:hidden;
+}
 *{
     margin:0;
     padding:0;
@@ -24,17 +31,12 @@ header h1{
     text-align:center;
 }
 
-/* BARRA BUSQUEDA */
 
-.topbar{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    padding:25px;
-}
+
 
 #busqueda{
-    width:550px;
+    width:100%;
+    max-width: 700px;
     padding:16px 22px;
     border:none;
     border-radius:15px;
@@ -47,15 +49,19 @@ header h1{
 /* MAIN */
 
 main{
-    display:flex;
-    gap:20px;
+
+    width:100%;
+
     padding:20px;
+
+    box-sizing:border-box;
 }
 
 /* PRODUCTOS */
 
 #productos{
-    flex:1;
+
+    width:100%;
 
     display:grid;
 
@@ -75,6 +81,9 @@ main{
     box-shadow:0 4px 15px rgba(0,0,0,.08);
 
     transition:.2s;
+    width:100%;
+
+    box-sizing:border-box;
 }
 
 .card:hover{
@@ -313,11 +322,19 @@ main{
 }
 
 .search input {
-  width: 300px;
-  min-width: 250px;
-  padding: 8px 12px;
-  border: 1px solid #cccccc18;
-  border-radius: 4px;
+
+  width:100%;
+  max-width:600px;
+
+  padding:12px 16px;
+
+  border:none;
+
+  border-radius:14px;
+
+  font-size:16px;
+
+  box-sizing:border-box;
 }
 
 /* Carrito a la derecha con contador */
@@ -463,65 +480,162 @@ main{
   cursor: pointer;
 }
 
-/* Responsive para móvil */
-@media (max-width: 768px) {
-  body {
-    font-size: 20px;
-  }
 
-  .topbar {
-    flex-direction: row;       /* mantener fila en móvil */
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px;
-  }
 
-  .topbar .logo img {
-    height: 120px;
-  }
 
-  .search {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
 
-  .search input {
-    width: 80%;
-    font-size: 20px;
-    padding: 12px;
-  }
+html,
+body{
+    width:100%;
+    overflow-x:hidden;
+}
 
-  .carrito-icono button {
-    font-size: 48px;
-  }
+*{
+    box-sizing:border-box;
+}
 
-  #carrito-count {
-    font-size: 18px;
-    padding: 4px 8px;
-  }
+main{
+    width:100%;
+}
 
-  /* 👇 Productos en dos columnas */
-  #productos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    padding: 10px;
-  }
+#productos{
+    width:100%;
+}
 
-  .card {
-    width: 100%;
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
+/* =========================
+   RESPONSIVE CELULAR
+========================= */
 
-  .card img {
-    max-width: 150px;
-    height: auto;
-  }
+@media (max-width: 768px){
 
-  #finalizar {
-    font-size: 20px;
-    padding: 14px;
-  }
+    body{
+        overflow-x:hidden;
+    }
+
+    /* HEADER */
+
+    .topbar{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+
+        gap:10px;
+
+        padding:12px;
+
+        width:100%;
+    }
+
+    /* LOGO */
+
+    .topbar .logo img{
+        height:80px;
+    }
+
+    /* BUSCADOR */
+
+    .search{
+        flex:1;
+        display:flex;
+        justify-content:center;
+    }
+
+    .search input{
+        width:100%;
+        min-width:0;
+
+        padding:12px;
+
+        font-size:16px;
+
+        border-radius:12px;
+    }
+
+    /* CARRITO */
+
+    .carrito-icono{
+        position:relative;
+        flex-shrink:0;
+    }
+
+    .carrito-icono button{
+        font-size:34px;
+    }
+
+    #carrito-count{
+        font-size:12px;
+
+        top:-3px;
+        right:-6px;
+    }
+
+    /* PRODUCTOS */
+
+    main{
+        padding:10px;
+    }
+
+    #productos{
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:10px;
+
+        width:100%;
+    }
+
+    /* TARJETAS */
+
+    .card{
+        width:100%;
+
+        padding:10px;
+
+        border-radius:14px;
+    }
+
+    .card img{
+        width:100%;
+        height:110px;
+        object-fit:contain;
+    }
+
+    .card h3{
+        font-size:14px;
+        min-height:45px;
+    }
+
+    .codigo{
+        font-size:12px;
+    }
+
+    .precio{
+        font-size:18px;
+    }
+
+    .controles label{
+        font-size:12px;
+    }
+
+    .controles input{
+        padding:8px;
+        font-size:14px;
+    }
+
+    .agregar{
+        padding:10px;
+        font-size:14px;
+    }
+
+    /* POPUP CARRITO */
+
+    #carrito-popup{
+        width:95%;
+
+        right:2.5%;
+
+        top:110px;
+    }
+
 }
