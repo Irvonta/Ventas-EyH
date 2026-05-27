@@ -459,3 +459,53 @@ main{
     max-width: 100px;         /* 👈 imágenes más pequeñas para no desbordar */
   }
 }
+
+
+
+
+
+
+
+
+
+
+/* Forzar tamaños grandes en móvil */
+@media (max-width: 768px) {
+  body {
+    font-size: 20px;       /* 👈 texto base más grande */
+  }
+
+  .topbar .logo img {
+    height: 160px;         /* 👈 logo grande */
+  }
+
+  .search input {
+    width: 95%;
+    font-size: 22px;       /* 👈 texto buscador grande */
+    padding: 14px;
+  }
+
+  .carrito-icono button {
+    font-size: 52px;       /* 👈 carrito enorme */
+  }
+
+  #carrito-count {
+    font-size: 20px;       /* 👈 contador más grande */
+    padding: 6px 10px;
+  }
+
+  .card {
+    width: 100%;
+    font-size: 20px;       /* 👈 texto de productos grande */
+    margin-bottom: 20px;
+  }
+
+  .card img {
+    max-width: 180px;      /* 👈 imágenes más grandes */
+  }
+
+  #finalizar {
+    font-size: 22px;       /* 👈 botón grande y legible */
+    padding: 16px;
+  }
+}
