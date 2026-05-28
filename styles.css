@@ -1,3 +1,10 @@
+html,
+body{
+
+    width:100%;
+
+    overflow-x:hidden;
+}
 *{
     margin:0;
     padding:0;
@@ -24,17 +31,12 @@ header h1{
     text-align:center;
 }
 
-/* BARRA BUSQUEDA */
 
-.topbar{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    padding:25px;
-}
+
 
 #busqueda{
-    width:550px;
+    width:100%;
+    max-width: 700px;
     padding:16px 22px;
     border:none;
     border-radius:15px;
@@ -47,15 +49,19 @@ header h1{
 /* MAIN */
 
 main{
-    display:flex;
-    gap:20px;
+
+    width:100%;
+
     padding:20px;
+
+    box-sizing:border-box;
 }
 
 /* PRODUCTOS */
 
 #productos{
-    flex:1;
+
+    width:100%;
 
     display:grid;
 
@@ -75,6 +81,9 @@ main{
     box-shadow:0 4px 15px rgba(0,0,0,.08);
 
     transition:.2s;
+    width:100%;
+
+    box-sizing:border-box;
 }
 
 .card:hover{
@@ -301,20 +310,114 @@ main{
 
 /* Logo grande y pegado a la izquierda */
 .topbar .logo img {
-  height: 170px;   /* 👈 más grande */
+  height: 170px;
   display: block;
 }
 
 /* Buscador centrado con ancho fijo */
 .search {
-  flex: 1;                  /* ocupa espacio central */
+  flex: 1;
   display: flex;
-  justify-content: center;  /* centra el input */
+  justify-content: center;
 }
 
 .search input {
-  width: 300px;             /* 👈 ancho fijo, la mitad de lo que tenías */
-  min-width: 250px;         /* 👈 tamaño mínimo para pantallas pequeñas */
+
+  width:100%;
+  max-width:600px;
+
+  padding:12px 16px;
+
+  border:none;
+
+  border-radius:14px;
+
+  font-size:16px;
+
+  box-sizing:border-box;
+}
+
+/* Carrito a la derecha con contador */
+.carrito-icono {
+  position: relative;
+}
+
+.carrito-icono button {
+  background: none;
+  border: none;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+#carrito-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: red;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 6px;
+}
+
+/* Carrito emergente */
+#carrito-popup {
+  width: 350px;
+  background: #fff;
+  border: 1px solid #ccc;
+  position: fixed;
+  right: 20px;
+  top: 180px;   /* 👈 más abajo para no tapar el botón */
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 15px;
+  z-index: 2500;
+}
+
+#carrito-items {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+#finalizar {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background: #007bff;
+  color: white;
+  font-size: 18px;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+/* Logo grande y pegado a la izquierda */
+.topbar .logo img {
+  height: 170px;
+  display: block;
+}
+
+/* Buscador centrado con ancho fijo */
+.search {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.search input {
+  width: 300px;
+  min-width: 250px;
   padding: 8px 12px;
   border: 1px solid #cccccc18;
   border-radius: 4px;
@@ -344,68 +447,35 @@ main{
   padding: 2px 6px;
 }
 
-/* Carrito emergente (popup) */
-.carrito-popup {
-  position: fixed;
-  right: 20px;
-  top: 80px;
-  width: 320px;
-  background: #fff;
-  border: 1px solid #ccc;
-  padding: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  display: none;        /* oculto por defecto */
-  z-index: 2500;
-}
-
-.carrito-popup h3 {
-  margin-top: 0;
-}
-
-.carrito-popup .subtotal,
-.carrito-popup .iva {
-  font-size: 1.1em;
-  font-weight: bold;
-  margin-top: 5px;
-}
-
-.carrito-popup .total {
-  font-size: 1.4em;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-
-
-
-
+/* Carrito emergente */
 #carrito-popup {
   width: 350px;
   background: #fff;
   border: 1px solid #ccc;
   position: fixed;
   right: 20px;
-  top: 180px;   /* 👈 lo bajamos un poco */
+  top: 180px;
   display: none;
   flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 15px;
+  z-index: 2500;
 }
 
-
-/* Área de items con scroll */
 #carrito-items {
-  max-height: 60vh;      /* 👈 altura máxima */
-  overflow-y: auto;      /* 👈 scroll interno */
+  max-height: 60vh;
+  overflow-y: auto;
   padding: 10px;
 }
 
-/* Botón Finalizar fijo abajo */
 #finalizar {
   position: sticky;
   bottom: 0;
   width: 100%;
   background: #007bff;
   color: white;
-  padding: 10px;
+  font-size: 18px;
+  padding: 12px;
   border: none;
   cursor: pointer;
 }
@@ -414,48 +484,158 @@ main{
 
 
 
-/* Estilos para pantallas pequeñas (celulares) */
-@media (max-width: 600px) {
-  .topbar {
-    flex-direction: column;   /* logo, buscador y carrito uno debajo del otro */
-    align-items: center;
-    padding: 10px;
-  }
+html,
+body{
+    width:100%;
+    overflow-x:hidden;
+}
 
-  .topbar .logo img {
-    height: 100px;            /* 👈 logo más pequeño en móvil */
-  }
+*{
+    box-sizing:border-box;
+}
 
-  .search input {
-    width: 90%;               /* 👈 buscador ocupa casi todo el ancho */
-    min-width: unset;
-  }
+main{
+    width:100%;
+}
 
-  .carrito-icono button {
-    font-size: 36px;          /* 👈 carrito más grande en móvil */
-  }
+#productos{
+    width:100%;
+}
 
-  #carrito-popup {
-    width: 95%;               /* 👈 carrito ocupa casi toda la pantalla */
-    right: 2.5%;              /* 👈 centrado */
-    top: 70px;
-  }
+/* =========================
+   RESPONSIVE CELULAR
+========================= */
 
-  #carrito-items {
-    max-height: 50vh;         /* 👈 scroll más corto para que no tape todo */
-  }
+@media (max-width: 768px){
 
-  #finalizar {
-    font-size: 18px;          /* 👈 botón más grande y legible */
-    padding: 12px;
-  }
+    body{
+        overflow-x:hidden;
+    }
 
-  .card {
-    width: 100%;              /* 👈 cada producto ocupa todo el ancho */
-    margin-bottom: 15px;
-  }
+    /* HEADER */
 
-  .card img {
-    max-width: 100px;         /* 👈 imágenes más pequeñas para no desbordar */
-  }
+    .topbar{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+
+        gap:10px;
+
+        padding:12px;
+
+        width:100%;
+    }
+
+    /* LOGO */
+
+    .topbar .logo img{
+        height:80px;
+    }
+
+    /* BUSCADOR */
+
+    .search{
+        flex:1;
+        display:flex;
+        justify-content:center;
+    }
+
+    .search input{
+        width:100%;
+        min-width:0;
+
+        padding:12px;
+
+        font-size:16px;
+
+        border-radius:12px;
+    }
+
+    /* CARRITO */
+
+    .carrito-icono{
+        position:relative;
+        flex-shrink:0;
+    }
+
+    .carrito-icono button{
+        font-size:34px;
+    }
+
+    #carrito-count{
+        font-size:12px;
+
+        top:-3px;
+        right:-6px;
+    }
+
+    /* PRODUCTOS */
+
+    main{
+        padding:10px;
+    }
+
+    #productos{
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:10px;
+
+        width:100%;
+    }
+
+    /* TARJETAS */
+
+    .card{
+        width:100%;
+
+        padding:10px;
+
+        border-radius:14px;
+    }
+
+    .card img{
+        width:100%;
+        height:110px;
+        object-fit:contain;
+    }
+
+    .card h3{
+        font-size:14px;
+        min-height:45px;
+    }
+
+    .codigo{
+        font-size:12px;
+    }
+
+    .precio{
+        font-size:18px;
+    }
+
+    .controles label{
+        font-size:12px;
+    }
+
+    .controles input{
+        padding:8px;
+        font-size:14px;
+    }
+
+    .agregar{
+        padding:10px;
+        font-size:14px;
+    }
+
+    /* POPUP CARRITO */
+
+    #carrito-popup{
+        width:95%;
+
+        right:2.5%;
+
+        top:110px;
+    }
+
 }
