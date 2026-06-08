@@ -190,13 +190,21 @@ finalizarBtn.addEventListener("click", () => {
   window.location.href = "resumen.html";
 });
 
-const btnCarrito = document.getElementById('btnCarrito');
-const carritoPopup = document.getElementById('carrito-popup');
+const btnCarrito =
+document.getElementById("btnCarrito");
 
-btnCarrito.addEventListener('click', () => {
-  carritoPopup.style.display = 
-    carritoPopup.style.display === 'block' ? 'none' : 'block';
+const carritoPopup =
+document.getElementById("carrito-popup");
 
+const contenido =
+document.getElementById("contenido");
+
+btnCarrito.addEventListener("click", () => {
+
+    carritoPopup.classList.toggle("abierto");
+    document.body.classList.toggle("carrito-abierto");
+
+});
 
 
 
@@ -218,15 +226,20 @@ btnCarrito.addEventListener('click', () => {
 
 
 
+document.getElementById("cerrar-carrito")
+.addEventListener("click", () => {
 
-
-
-
-
-
-
-
-
-
+    carritoPopup.classList.remove("abierto");
+    document.body.classList.remove("carrito-abierto");
 
 });
+
+
+
+
+
+
+
+
+
+
