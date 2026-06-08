@@ -84,6 +84,25 @@ function agregarCarrito(codigo) {
   renderCarrito();
 }
 
+
+
+
+// Mostrar el botón cuando se hace scroll
+window.onscroll = function() {
+  const btn = document.getElementById("btn-top");
+  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+};
+
+// Al dar clic, volver al inicio
+document.getElementById("btn-top").addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+
 function renderCarrito() {
   carritoDiv.innerHTML = "";
   let subtotal = 0;
@@ -177,4 +196,37 @@ const carritoPopup = document.getElementById('carrito-popup');
 btnCarrito.addEventListener('click', () => {
   carritoPopup.style.display = 
     carritoPopup.style.display === 'block' ? 'none' : 'block';
+
+
+
+
+    document.getElementById("eliminar-carrito").addEventListener("click", () => {
+    const confirmacion = confirm("¿Estás seguro de eliminar todo el carrito?");
+    if (confirmacion) {
+        // Vaciar carrito
+        localStorage.removeItem("carrito");
+        // Opcional: también quitar cliente si quieres reiniciar todo
+        // localStorage.removeItem("cliente");
+
+        alert("Carrito eliminado correctamente.");
+        // Recargar la página para reflejar cambios
+        window.location.reload();
+    } else {
+        alert("Eliminación cancelada.");
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });

@@ -163,12 +163,38 @@ main{
     background:#1d4ed8;
 }
 
+
+
+
+
+#btn-top {
+  display: none;              /* oculto por defecto */
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #007bff;  /* azul */
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 50%;         /* 👈 circulito */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+#btn-top:hover {
+  background-color: #0056b3;  /* azul más oscuro al pasar el mouse */
+}
+
+
 /* CARRITO */
 
 #carrito {
   position: fixed;
   right: 20px;          /* margen derecho */
-  top: 80px;            /* debajo del logo */
+  top:80px;            /* debajo del logo */
   width: 260px;         /* 👈 más angosto */
   background: #fff;     /* fondo sólido */
   border: 1px solid #ccc;
@@ -361,6 +387,10 @@ main{
   padding: 2px 6px;
 }
 
+
+
+
+
 /* Carrito emergente */
 #carrito-popup {
   width: 350px;
@@ -368,35 +398,68 @@ main{
   border: 1px solid #ccc;
   position: fixed;
   right: 20px;
-  top: 180px;   /* 👈 más abajo para no tapar el botón */
-  display: none;
+  top: 120px;
+  display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  padding: 15px;
-  z-index: 2500;
+  max-height: 70vh;        /* 👈 límite de altura */
 }
+
+#carrito-items {
+  flex: 1;                 /* ocupa el espacio disponible */
+  overflow-y: auto;        /* scroll interno para productos */
+}
+
+#finalizar,
+.btn-eliminar {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
 
 #carrito-items {
   max-height: 60vh;
   overflow-y: auto;
   padding: 10px;
 }
+#finalizar,
+.btn-eliminar {
+  display: block;          /* hace que ocupen toda la línea */
+  width: 100%;             /* ancho completo */
+  text-align: center;      /* centra el texto */
+  font-family: Arial, sans-serif; /* tipografía igual para ambos */
+  font-size: 18px;         /* mismo tamaño de letra */
+  padding: 12px;           /* mismo padding */
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
 
+/* Estilo específico para el azul */
 #finalizar {
   position: sticky;
   bottom: 0;
-  width: 100%;
   background: #007bff;
   color: white;
-  font-size: 18px;
-  padding: 12px;
-  border: none;
-  cursor: pointer;
 }
 
+/* Estilo específico para el rojo */
+.btn-eliminar {
+  background: red;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+}
 
-
-
+.btn-eliminar:hover {
+  background: darkred;
+}
 
 
 
@@ -501,6 +564,17 @@ main{
 #productos{
     width:100%;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 /* =========================
    RESPONSIVE CELULAR
@@ -628,14 +702,10 @@ main{
         font-size:14px;
     }
 
-    /* POPUP CARRITO */
+   
 
-    #carrito-popup{
-        width:95%;
 
-        right:2.5%;
 
-        top:110px;
-    }
-
+/* VOLVER A ESTE PUNTO*/
+    
 }
