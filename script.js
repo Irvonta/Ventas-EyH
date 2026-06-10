@@ -201,6 +201,13 @@ console.log("CLICK EN FINALIZAR");
         .value
         .trim();
 
+        const agente = document
+    .getElementById("agente")
+    .options[
+        document.getElementById("agente").selectedIndex
+    ].text;
+
+
     if(nombre === ""){
         alert("Por favor escribe tu nombre.");
         return;
@@ -215,6 +222,7 @@ console.log("CLICK EN FINALIZAR");
 
     mensaje += `Pedido Para Equipos Y Herramientas Del Norte \n`;
     mensaje += `Cliente: ${nombre}\n`;
+    mensaje += `Agente: ${agente}\n`;
     mensaje += `-------------------------------------------\n`;
 
     carrito.forEach((item, index) => {
@@ -249,6 +257,7 @@ console.log("CLICK EN FINALIZAR");
 
     generarPDF(
     nombre,
+    agente,
     carrito,
     subtotal,
     iva,
@@ -349,86 +358,130 @@ document.getElementById("cerrar-carrito")
 
 
 
-function generarPDF(nombre, carrito, subtotal, iva, total){
+function generarPDF(nombre, agente, carrito, subtotal, iva, total){
 
     const { jsPDF } = window.jspdf;
-
     const doc = new jsPDF();
 
-    doc.setFontSize(18);
-    doc.text("EQUIPOS Y HERRAMIENTAS DEL NORTE", 10, 15);
+    const logo = new Image();
+    logo.src = "img/logo.png";
 
-    doc.setFontSize(12);
-    doc.text(`Cliente: ${nombre}`, 10, 25);
+    logo.onload = function () {
 
-    let y = 40;
+        // LOGO
+        doc.addImage(
+            logo,
+            "PNG",
+            165,
+            3,
+            50,
+            30
+        );
 
-    doc.text("CODIGO", 10, y);
-    doc.text("DESCRIPCION", 40, y);
-    doc.text("CANT", 150, y);
-    doc.text("PRECIO", 175, y);
+        // TITULO
+        doc.setFontSize(18);
+        doc.text(
+            "EQUIPOS Y HERRAMIENTAS DEL NORTE",
+            10,
+            15
+        );
 
-    y += 10;
-
-    carrito.forEach(item => {
-
-        doc.text(item.codigo.toString(), 10, y);
+        // DATOS CLIENTE
+        doc.setFontSize(12);
 
         doc.text(
-            item.descripcion.substring(0, 35),
-            40,
-            y
+            `Cliente: ${nombre}`,
+            10,
+            28
         );
 
         doc.text(
-            item.cantidad.toString(),
-            150,
-            y
+            `Agente: ${agente}`,
+            10,
+            36
         );
 
+        let y = 50;
+
+        // ENCABEZADOS
+        doc.setFont(undefined, "bold");
+
+        doc.text("CODIGO", 10, y);
+        doc.text("DESCRIPCION", 40, y);
+        doc.text("CANT", 150, y);
+        doc.text("PRECIO", 175, y);
+
+        doc.setFont(undefined, "normal");
+
+        y += 10;
+
+        carrito.forEach(item => {
+
+            doc.text(
+                item.codigo.toString(),
+                10,
+                y
+            );
+
+            doc.text(
+                item.descripcion.substring(0, 35),
+                40,
+                y
+            );
+
+            doc.text(
+                item.cantidad.toString(),
+                150,
+                y
+            );
+
+            doc.text(
+                `$${item.precio}`,
+                175,
+                y
+            );
+
+            y += 8;
+        });
+
+        y += 10;
+
         doc.text(
-            `$${item.precio}`,
-            175,
+            `Subtotal: $${subtotal.toFixed(2)}`,
+            10,
             y
         );
 
         y += 8;
-    });
 
-    y += 10;
+        doc.text(
+            `IVA: $${iva.toFixed(2)}`,
+            10,
+            y
+        );
 
-    doc.text(
-        `Subtotal: $${subtotal.toFixed(2)}`,
-        10,
-        y
-    );
+        y += 8;
 
-    y += 8;
+        doc.setFont(undefined, "bold");
 
-    doc.text(
-        `IVA: $${iva.toFixed(2)}`,
-        10,
-        y
-    );
+        doc.text(
+            `TOTAL: $${total.toFixed(2)}`,
+            10,
+            y
+        );
 
-    y += 8;
+        // FECHA EN NOMBRE DEL PDF
+        const fecha = new Date();
 
-    doc.text(
-        `TOTAL: $${total.toFixed(2)}`,
-        10,
-        y
-    );
+        const fechaTexto =
+            fecha.getFullYear() + "-" +
+            String(fecha.getMonth() + 1).padStart(2, "0") + "-" +
+            String(fecha.getDate()).padStart(2, "0");
 
-    const fecha = new Date();
+        doc.save(
+            `Pedido_${nombre}_${fechaTexto}.pdf`
+        );
 
-const fechaTexto =
-    fecha.getFullYear() + "-" +
-    String(fecha.getMonth() + 1).padStart(2, "0") + "-" +
-    String(fecha.getDate()).padStart(2, "0");
-
-doc.save(
-    `Pedido_${nombre}_${fechaTexto}.pdf`
-);
+    };
 }
-
 

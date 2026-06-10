@@ -591,27 +591,43 @@ main{
 
 
 
-
-.cliente-box{
+.cliente-box,
+.agente-box{
     margin-top:15px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
 }
 
-.cliente-box label{
-    display:block;
-    margin-bottom:6px;
+.cliente-box label,
+.agente-box label{
+    font-size:14px;
     font-weight:bold;
+    color:#444;
 }
 
-#nombre-cliente{
+#nombre-cliente,
+#agente{
     width:100%;
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:16px;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    font-size:15px;
+    background:white;
+    transition:.2s;
 }
 
+#nombre-cliente:focus,
+#agente:focus{
+    outline:none;
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
 
-
+#agente{
+    cursor:pointer;
+    font-weight:500;
+}
 
 
 
