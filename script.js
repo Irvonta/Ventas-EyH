@@ -244,6 +244,19 @@ console.log("CLICK EN FINALIZAR");
     mensaje += `IVA: $${iva.toFixed(2)}\n`;
     mensaje += `TOTAL: $${total.toFixed(2)}\n`;
 
+
+
+
+    generarPDF(
+    nombre,
+    carrito,
+    subtotal,
+    iva,
+    total
+);
+
+
+
     const telefono = "5218714608058";
 
 location.href =
@@ -336,7 +349,86 @@ document.getElementById("cerrar-carrito")
 
 
 
+function generarPDF(nombre, carrito, subtotal, iva, total){
 
+    const { jsPDF } = window.jspdf;
 
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text("EQUIPOS Y HERRAMIENTAS DEL NORTE", 10, 15);
+
+    doc.setFontSize(12);
+    doc.text(`Cliente: ${nombre}`, 10, 25);
+
+    let y = 40;
+
+    doc.text("CODIGO", 10, y);
+    doc.text("DESCRIPCION", 40, y);
+    doc.text("CANT", 150, y);
+    doc.text("PRECIO", 175, y);
+
+    y += 10;
+
+    carrito.forEach(item => {
+
+        doc.text(item.codigo.toString(), 10, y);
+
+        doc.text(
+            item.descripcion.substring(0, 35),
+            40,
+            y
+        );
+
+        doc.text(
+            item.cantidad.toString(),
+            150,
+            y
+        );
+
+        doc.text(
+            `$${item.precio}`,
+            175,
+            y
+        );
+
+        y += 8;
+    });
+
+    y += 10;
+
+    doc.text(
+        `Subtotal: $${subtotal.toFixed(2)}`,
+        10,
+        y
+    );
+
+    y += 8;
+
+    doc.text(
+        `IVA: $${iva.toFixed(2)}`,
+        10,
+        y
+    );
+
+    y += 8;
+
+    doc.text(
+        `TOTAL: $${total.toFixed(2)}`,
+        10,
+        y
+    );
+
+    const fecha = new Date();
+
+const fechaTexto =
+    fecha.getFullYear() + "-" +
+    String(fecha.getMonth() + 1).padStart(2, "0") + "-" +
+    String(fecha.getDate()).padStart(2, "0");
+
+doc.save(
+    `Pedido_${nombre}_${fechaTexto}.pdf`
+);
+}
 
 
