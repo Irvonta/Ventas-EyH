@@ -184,11 +184,107 @@ buscador.addEventListener("input", () => {
   mostrarProductos(filtrados);
 });
 
+
+
+
+
+
 const finalizarBtn = document.getElementById("finalizar");
+
 finalizarBtn.addEventListener("click", () => {
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-  window.location.href = "resumen.html";
+
+    const nombre = document
+        .getElementById("nombre-cliente")
+        .value
+        .trim();
+
+    if(nombre === ""){
+        alert("Por favor escribe tu nombre.");
+        return;
+    }
+
+    if(carrito.length === 0){
+        alert("Tu carrito está vacío.");
+        return;
+    }
+
+    let mensaje = "";
+
+    mensaje += `Pedido Para Equipos Y Herramientas Del Norte \n`;
+    mensaje += `Cliente: ${nombre}\n`;
+    mensaje += `-------------------------------------------\n`;
+
+    carrito.forEach((item, index) => {
+
+        mensaje += `${index + 1}. ${item.descripcion}\n`;
+        mensaje += `Código: ${item.codigo}\n`;
+        mensaje += `Cantidad: ${item.cantidad}\n`;
+        mensaje += `Precio: $${item.precio}\n\n`;
+
+    });
+
+    const subtotal = carrito.reduce(
+        (acc, item) => acc + (item.precio * item.cantidad),
+        0
+    );
+
+    const iva = subtotal * 0.16;
+    const total = subtotal + iva;
+
+    const piezas = carrito.reduce(
+        (acc, item) => acc + item.cantidad,
+        0
+    );
+
+    mensaje += `-----------------------------\n`;
+    mensaje += `Subtotal: $${subtotal.toFixed(2)}\n`;
+    mensaje += `IVA: $${iva.toFixed(2)}\n`;
+    mensaje += `TOTAL: $${total.toFixed(2)}\n`;
+
+    const telefono = "5218714608058";
+
+    window.open(
+        `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`,
+        "_blank"
+    );
+
 });
+
+
+
+document.getElementById("nombre-cliente")
+.addEventListener("input", function() {
+
+    localStorage.setItem(
+        "nombreCliente",
+        this.value
+    );
+
+});
+
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    const guardado = localStorage.getItem("carrito");
+
+    if(guardado){
+        carrito = JSON.parse(guardado);
+        renderCarrito();
+    }
+
+    const nombreGuardado =
+        localStorage.getItem("nombreCliente");
+
+    if(nombreGuardado){
+        document.getElementById("nombre-cliente").value =
+            nombreGuardado;
+    }
+
+});
+
+
+
+
 
 const btnCarrito =
 document.getElementById("btnCarrito");

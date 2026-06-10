@@ -592,7 +592,23 @@ main{
 
 
 
+.cliente-box{
+    margin-top:15px;
+}
 
+.cliente-box label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+#nombre-cliente{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
 
 
 
