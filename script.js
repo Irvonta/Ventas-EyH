@@ -1,3 +1,4 @@
+console.log("SCRIPT CARGADO");
 const productosDiv = document.getElementById("productos");
 const carritoDiv = document.getElementById("carrito-items");
 const totalSpan = document.getElementById("total");
@@ -193,6 +194,8 @@ const finalizarBtn = document.getElementById("finalizar");
 
 finalizarBtn.addEventListener("click", () => {
 
+console.log("CLICK EN FINALIZAR");
+
     const nombre = document
         .getElementById("nombre-cliente")
         .value
@@ -243,10 +246,8 @@ finalizarBtn.addEventListener("click", () => {
 
     const telefono = "5218714608058";
 
-    window.open(
-        `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`,
-        "_blank"
-    );
+location.href =
+    `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
 
 });
 
