@@ -368,120 +368,188 @@ function generarPDF(nombre, agente, carrito, subtotal, iva, total){
 
     logo.onload = function () {
 
-        // LOGO
-        doc.addImage(
-            logo,
-            "PNG",
-            165,
-            3,
-            50,
-            30
-        );
+        const filasPorHoja = 25;
 
-        // TITULO
-        doc.setFontSize(18);
-        doc.text(
-            "EQUIPOS Y HERRAMIENTAS DEL NORTE",
-            10,
-            15
-        );
-
-        // DATOS CLIENTE
-        doc.setFontSize(12);
-
-        doc.text(
-            `Cliente: ${nombre}`,
-            10,
-            28
-        );
-
-        doc.text(
-            `Agente: ${agente}`,
-            10,
-            36
-        );
-
-        let y = 50;
-
-        // ENCABEZADOS
-        doc.setFont(undefined, "bold");
-
-        doc.text("CODIGO", 10, y);
-        doc.text("DESCRIPCION", 40, y);
-        doc.text("CANT", 150, y);
-        doc.text("PRECIO", 175, y);
-
-        doc.setFont(undefined, "normal");
-
-        y += 10;
-
-        carrito.forEach(item => {
-
-            doc.text(
-                item.codigo.toString(),
-                10,
-                y
-            );
-
-            doc.text(
-                item.descripcion.substring(0, 35),
-                40,
-                y
-            );
-
-            doc.text(
-                item.cantidad.toString(),
-                150,
-                y
-            );
-
-            doc.text(
-                `$${item.precio}`,
-                175,
-                y
-            );
-
-            y += 8;
-        });
-
-        y += 10;
-
-        doc.text(
-            `Subtotal: $${subtotal.toFixed(2)}`,
-            10,
-            y
-        );
-
-        y += 8;
-
-        doc.text(
-            `IVA: $${iva.toFixed(2)}`,
-            10,
-            y
-        );
-
-        y += 8;
-
-        doc.setFont(undefined, "bold");
-
-        doc.text(
-            `TOTAL: $${total.toFixed(2)}`,
-            10,
-            y
-        );
-
-        // FECHA EN NOMBRE DEL PDF
         const fecha = new Date();
 
-        const fechaTexto =
+        const fechaVisible =
+            fecha.getDate().toString().padStart(2,"0") + "/" +
+            (fecha.getMonth() + 1).toString().padStart(2,"0") + "/" +
+            fecha.getFullYear();
+
+        const fechaArchivo =
             fecha.getFullYear() + "-" +
-            String(fecha.getMonth() + 1).padStart(2, "0") + "-" +
-            String(fecha.getDate()).padStart(2, "0");
+            String(fecha.getMonth() + 1).padStart(2,"0") + "-" +
+            String(fecha.getDate()).padStart(2,"0");
+
+        let hojaActual = 1;
+        let indice = 0;
+
+        while(indice < carrito.length){
+
+            if(hojaActual > 1){
+                doc.addPage();
+            }
+
+            // LOGO
+            doc.addImage(
+                logo,
+                "PNG",
+                155,
+                2,
+                50,
+                30
+            );
+
+            // EMPRESA
+            doc.setFont(undefined, "bold");
+            doc.setFontSize(18);
+
+            doc.text(
+                "EQUIPOS Y HERRAMIENTAS DEL NORTE",
+                10,
+                15
+            );
+
+            // HOJA
+            doc.setFontSize(20);
+
+            doc.text(
+                `PEDIDO #${hojaActual}`,
+                10,
+                28
+            );
+
+            // CLIENTE
+            doc.setFont(undefined, "bold");
+            doc.setFontSize(14);
+
+            doc.text(
+                `Cliente: ${nombre}`,
+                10,
+                40
+            );
+
+            // AGENTE
+            doc.setFont(undefined, "normal");
+            doc.setFontSize(12);
+
+            doc.text(
+                `Agente: ${agente}`,
+                10,
+                48
+            );
+
+            let y = 62;
+
+            // ENCABEZADOS
+            doc.setFont(undefined, "bold");
+
+            doc.text(
+    "CODIGO",
+    20,
+    y,
+    { align: "center" }
+);
+            doc.text("DESCRIPCION", 35, y);
+            doc.text(
+    "CANT.",
+    185,
+    y,
+    { align: "center" }
+);
+
+            doc.setFont(undefined, "normal");
+
+            y += 10;
+
+            let filasActuales = 0;
+
+            while(
+                indice < carrito.length &&
+                filasActuales < filasPorHoja
+            ){
+
+                const item = carrito[indice];
+
+                // CODIGO
+                doc.text(
+    item.codigo.toString(),
+    20,
+    y,
+    { align: "center" }
+);
+
+                // DESCRIPCION
+                doc.text(
+                    item.descripcion.substring(0,65),
+                    35,
+                    y
+                );
+
+                // CANTIDAD
+                doc.text(
+    item.cantidad.toString(),
+    185,
+    y,
+    { align: "center" }
+);
+
+                y += 8;
+
+                indice++;
+                filasActuales++;
+            }
+
+            // FECHA ABAJO DERECHA
+            doc.setFont(undefined, "bold");
+            doc.setFontSize(16);
+
+            doc.text(
+                fechaVisible,
+                155,
+                285
+            );
+
+            doc.setFont(undefined, "normal");
+
+            // TOTALES SOLO EN LA ÚLTIMA HOJA
+            if(indice >= carrito.length){
+
+                y += 10;
+
+                doc.setFontSize(12);
+
+                doc.text(
+                    `Subtotal: $${subtotal.toFixed(2)}`,
+                    10,
+                    y
+                );
+
+                y += 8;
+
+                doc.text(
+                    `IVA: $${iva.toFixed(2)}`,
+                    10,
+                    y
+                );
+
+                y += 8;
+
+                doc.setFont(undefined, "bold");
+
+                doc.text(
+                    `TOTAL: $${total.toFixed(2)}`,
+                    10,
+                    y
+                );
+            }
+
+            hojaActual++;
+        }
 
         doc.save(
-            `Pedido_${nombre}_${fechaTexto}.pdf`
+            `Pedido_${nombre}_${fechaArchivo}.pdf`
         );
-
     };
 }
-
