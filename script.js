@@ -16,12 +16,33 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
+
 fetch("https://apiferreteria.onrender.com/api/productos")
   .then(res => res.json())
   .then(data => {
-    productos = data;
+
+    productos = data.sort((a, b) => {
+
+    const nombreA = a.descripcion
+        .replace(/["'().,-]/g, "")
+        .toUpperCase()
+        .trim();
+
+    const nombreB = b.descripcion
+        .replace(/["'().,-]/g, "")
+        .toUpperCase()
+        .trim();
+
+    return nombreA.localeCompare(nombreB, "es");
+});
+
     mostrarProductos(productos);
+
   });
+
+
+
 
 function mostrarProductos(lista) {
   productosDiv.innerHTML = "";
