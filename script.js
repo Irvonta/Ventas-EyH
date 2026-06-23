@@ -68,7 +68,7 @@ function mostrarProductos(lista) {
           type="number"
           min="1"
           max="100"
-          value="1"
+          placeholder="1"
           id="cantidad-${producto.codigo}"
         >
       </div>
@@ -84,10 +84,16 @@ function mostrarProductos(lista) {
     productosDiv.appendChild(card);
   });
 }
-
 function agregarCarrito(codigo) {
   const producto = productos.find(p => p.codigo == codigo);
-  const cantidad = parseInt(document.getElementById(`cantidad-${codigo}`).value);
+
+  const inputCantidad =
+    document.getElementById(`cantidad-${codigo}`).value;
+
+  const cantidad =
+    inputCantidad === ""
+      ? 1
+      : parseInt(inputCantidad);
 
   const existente = carrito.find(p => p.codigo == codigo);
 
@@ -100,8 +106,11 @@ function agregarCarrito(codigo) {
     });
   }
 
-  // 👇 guardar carrito en localStorage
-  localStorage.setItem("carrito", JSON.stringify(carrito));
+  // guardar carrito en localStorage
+  localStorage.setItem(
+    "carrito",
+    JSON.stringify(carrito)
+  );
 
   renderCarrito();
 }
