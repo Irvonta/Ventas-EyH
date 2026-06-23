@@ -22,22 +22,29 @@ fetch("https://apiferreteria.onrender.com/api/productos")
   .then(res => res.json())
   .then(data => {
 
-    productos = data.sort((a, b) => {
+  productos = data.map(producto => ({
+  ...producto,
+  descripcion: producto.descripcion
+    .replace(/"/g, "")
+    .replace(/'/g, "")
+}));
 
-    const nombreA = a.descripcion
-        .replace(/["'().,-]/g, "")
-        .toUpperCase()
-        .trim();
+productos.sort((a, b) => {
 
-    const nombreB = b.descripcion
-        .replace(/["'().,-]/g, "")
-        .toUpperCase()
-        .trim();
+  const nombreA = a.descripcion
+      .replace(/[().,-]/g, "")
+      .toUpperCase()
+      .trim();
 
-    return nombreA.localeCompare(nombreB, "es");
+  const nombreB = b.descripcion
+      .replace(/[().,-]/g, "")
+      .toUpperCase()
+      .trim();
+
+  return nombreA.localeCompare(nombreB, "es");
 });
 
-    mostrarProductos(productos);
+mostrarProductos(productos);
 
   });
 
@@ -68,7 +75,6 @@ function mostrarProductos(lista) {
           type="number"
           min="1"
           max="100"
-          placeholder="1"
           id="cantidad-${producto.codigo}"
         >
       </div>
