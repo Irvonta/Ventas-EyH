@@ -60,6 +60,7 @@ function mostrarProductos(lista) {
 
     card.innerHTML = `
       <img 
+        loading="lazy"
         src="img/${producto.categoria}/${producto.codigo}.png" 
         alt="${producto.descripcion}"
         onerror="this.onerror=null; this.src='img/no-image.png';"
@@ -67,7 +68,7 @@ function mostrarProductos(lista) {
 
       <h3>${producto.descripcion}</h3>
       <p class="codigo">Código: ${producto.codigo}</p>
-      <p class="precio">$${producto.precio}</p>
+<p class="precio">$${Number(producto.precio).toFixed(2)}</p>
 
       <div class="controles">
         <label>Cantidad:</label>
@@ -160,7 +161,7 @@ function renderCarrito() {
       <div class="info">
         <h4>${item.descripcion}</h4>
         <p>Código: ${item.codigo}</p>
-        <p>$${item.precio}</p>
+        <p>$${Number(item.precio).toFixed(2)}</p>
 
         <input
           type="number"

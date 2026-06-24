@@ -18,14 +18,22 @@ body{
 
 
 
-header{
-    background:white;
-    padding:20px;
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
-    position:sticky;
-    top:0;    
-    z-index: 1000;    
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;       /* ocupa todo el ancho */
+    background: white; /* fondo sólido */
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    z-index: 1000;     /* queda encima del contenido */
 }
+
+/* Ajuste para que el contenido no se tape */
+main {
+    padding-top: 100px; /* ajusta según la altura real del header */
+}
+
 
 header h1{
     text-align:center;
@@ -307,18 +315,25 @@ main{
 }
 
 
-/* Barra superior */
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between; /* logo izquierda, carrito derecha */
   background: #cecece;            /* color naranja estilo FIX */
   padding: 10px 20px;
-  position: sticky;
+  position: fixed;                /* 👈 ahora fijo */
   top: 0;
+  left: 0;
+  width: 100%;                    /* ocupa todo el ancho */
   z-index: 1200;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
+/* Ajuste para que el contenido no se tape */
+main {
+  padding-top: 180px; /* ajusta según la altura real del header/topbar */
+}
+
 
 /* Logo grande y pegado a la izquierda */
 .topbar .logo img {
