@@ -273,13 +273,13 @@ main{
 .topbar {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* logo izquierda, carrito derecha */
-  background: #cecece;            /* color naranja estilo FIX */
+  justify-content: space-between; 
+  background: #cecece;            
   padding: 10px 20px;
-  position: fixed;                /* 👈 ahora fijo */
+  position: fixed;               
   top: 0;
   left: 0;
-  width: 100%;                    /* ocupa todo el ancho */
+  width: 100%;                    
   z-index: 1200;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
