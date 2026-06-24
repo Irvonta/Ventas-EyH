@@ -24,7 +24,7 @@ header {
     left: 0;
     width: 100%;       /* ocupa todo el ancho */
     background: white; /* fondo sólido */
-    padding: 20px;
+    padding: 12px;
     box-shadow: 0 2px 10px rgba(0,0,0,.08);
     z-index: 1000;     /* queda encima del contenido */
 }
@@ -286,7 +286,7 @@ main{
 
 /* Ajuste para que el contenido no se tape */
 main {
-  padding-top: 180px; /* ajusta según la altura real del header/topbar */
+  padding-top: 120px; /* ajusta según la altura real del header/topbar */
 }
 
 
