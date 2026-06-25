@@ -393,8 +393,6 @@ document.getElementById("cerrar-carrito")
 
 
 
-
-
 function generarPDF(nombre, agente, carrito, subtotal, iva, total){
 
     const { jsPDF } = window.jspdf;
@@ -483,18 +481,33 @@ function generarPDF(nombre, agente, carrito, subtotal, iva, total){
             doc.setFont(undefined, "bold");
 
             doc.text(
-    "CODIGO",
-    20,
-    y,
-    { align: "center" }
-);
-            doc.text("DESCRIPCION", 35, y);
+                "CODIGO",
+                20,
+                y,
+                { align: "center" }
+            );
+
             doc.text(
-    "CANT.",
-    185,
-    y,
-    { align: "center" }
-);
+                "DESCRIPCION",
+                35,
+                y
+            );
+
+            doc.text(
+                "CANT.",
+                185,
+                y,
+                { align: "center" }
+            );
+
+            // TABLA
+            doc.line(10, y - 5, 200, y - 5);
+            doc.line(10, y + 3, 200, y + 3);
+
+            doc.line(10, y - 5, 10, 250);
+            doc.line(30, y - 5, 30, 250);
+            doc.line(175, y - 5, 175, 250);
+            doc.line(200, y - 5, 200, 250);
 
             doc.setFont(undefined, "normal");
 
@@ -511,28 +524,31 @@ function generarPDF(nombre, agente, carrito, subtotal, iva, total){
 
                 // CODIGO
                 doc.text(
-    item.codigo.toString(),
-    20,
-    y,
-    { align: "center" }
-);
+                    item.codigo.toString(),
+                    20,
+                    y,
+                    { align: "center" }
+                );
 
                 // DESCRIPCION
                 doc.text(
-                    item.descripcion.substring(0,65),
+                    item.descripcion.substring(0,55),
                     35,
                     y
                 );
 
                 // CANTIDAD
                 doc.text(
-    item.cantidad.toString(),
-    185,
-    y,
-    { align: "center" }
-);
+                    item.cantidad.toString(),
+                    185,
+                    y,
+                    { align: "center" }
+                );
 
                 y += 8;
+
+                // LINEA DEL RENGLON
+                doc.line(10, y - 4, 200, y - 4);
 
                 indice++;
                 filasActuales++;
