@@ -3,7 +3,6 @@ const productosDiv = document.getElementById("productos");
 const carritoDiv = document.getElementById("carrito-items");
 const totalSpan = document.getElementById("total");
 const buscador = document.getElementById("busqueda");
-
 let carrito = [];
 let productos = [];
 
