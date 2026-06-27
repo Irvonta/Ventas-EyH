@@ -493,12 +493,15 @@ function generarPDF(nombre, agente, carrito, subtotal, iva, total){
                 y
             );
 
+            doc.text("SURT.", 167.5, y, { align: "center" });
+
             doc.text(
                 "CANT.",
                 187.5,
                 y,
                 { align: "center" }
             );
+
 
           
 
