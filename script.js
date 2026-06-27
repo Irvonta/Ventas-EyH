@@ -290,22 +290,27 @@ console.log("CLICK EN FINALIZAR");
 
 
 
+// Generar PDF
+generarPDF(nombre, agente, carrito, subtotal, iva, total);
 
-    generarPDF(
-    nombre,
-    agente,
-    carrito,
-    subtotal,
-    iva,
-    total
-);
+// Convertir PDF a base64
+const pdfOutput = doc.output("datauristring").split(",")[1]; // base64 sin encabezado
+
+// Enviar PDF por correo automáticamente
+fetch("https://localhost:5001/api/email/enviar-pdf", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    destinatario: "cliente@example.com", // aquí puedes poner el correo del cliente
+    pdfBase64: pdfOutput
+  })
+})
+.then(res => res.text())
+.then(msg => console.log("Correo:", msg))
+.catch(err => console.error("Error:", err));
 
 
 
-    const telefono = "5218714608058";
-
-location.href =
-    `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
 
 });
 
@@ -613,4 +618,21 @@ doc.line(175, 57, 175, finTabla);
             `Pedido_${nombre}_${fechaArchivo}.pdf`
         );
     };
+}
+
+
+function enviarPdfPorCorreo(destinatario) {
+  const pdfOutput = doc.output("datauristring").split(",")[1]; // base64 sin encabezado
+
+  fetch("https://localhost:5001/api/email/enviar-pdf", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      destinatario: destinatario,
+      pdfBase64: pdfOutput
+    })
+  })
+  .then(res => res.text())
+  .then(msg => console.log(msg))
+  .catch(err => console.error(err));
 }
