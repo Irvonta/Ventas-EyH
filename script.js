@@ -495,19 +495,17 @@ function generarPDF(nombre, agente, carrito, subtotal, iva, total){
 
             doc.text(
                 "CANT.",
-                185,
+                187.5,
                 y,
                 { align: "center" }
             );
 
-            // TABLA
-            doc.line(10, y - 5, 200, y - 5);
-            doc.line(10, y + 3, 200, y + 3);
+          
 
-            doc.line(10, y - 5, 10, 250);
-            doc.line(30, y - 5, 30, 250);
-            doc.line(175, y - 5, 175, 250);
-            doc.line(200, y - 5, 200, 250);
+// TABLA ENCABEZADO
+
+doc.line(10, y - 5, 200, y - 5);
+doc.line(10, y + 3, 200, y + 3);
 
             doc.setFont(undefined, "normal");
 
@@ -540,7 +538,7 @@ function generarPDF(nombre, agente, carrito, subtotal, iva, total){
                 // CANTIDAD
                 doc.text(
                     item.cantidad.toString(),
-                    185,
+                    187.5,
                     y,
                     { align: "center" }
                 );
@@ -552,6 +550,14 @@ function generarPDF(nombre, agente, carrito, subtotal, iva, total){
 
                 indice++;
                 filasActuales++;
+                const finTabla = y - 4;
+
+// líneas verticales
+doc.line(10, 57, 10, finTabla);
+doc.line(30, 57, 30, finTabla);
+doc.line(160, 57, 160, finTabla);
+doc.line(200, 57, 200, finTabla);
+doc.line(175, 57, 175, finTabla);
             }
 
             // FECHA ABAJO DERECHA
