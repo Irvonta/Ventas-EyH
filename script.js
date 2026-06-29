@@ -124,20 +124,7 @@ function agregarCarrito(codigo) {
 
 
 
-// Mostrar el botón cuando se hace scroll
-window.onscroll = function() {
-  const btn = document.getElementById("btn-top");
-  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-    btn.style.display = "block";
-  } else {
-    btn.style.display = "none";
-  }
-};
 
-// Al dar clic, volver al inicio
-document.getElementById("btn-top").addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
 
 
 function renderCarrito() {
@@ -497,14 +484,19 @@ function generarPDF(nombre, agente, carrito, subtotal, iva, total){
                 y
             );
 
-            doc.text("SURT.", 167.5, y, { align: "center" });
-
             doc.text(
-                "CANT.",
-                187.5,
-                y,
-                { align: "center" }
-            );
+    "CANT.",
+    168,
+    y,
+    { align: "center" }
+);
+
+doc.text(
+    "SURT.",
+    190,
+    y,
+    { align: "center" }
+);
 
 
           
@@ -544,11 +536,11 @@ doc.line(10, y + 3, 200, y + 3);
 
                 // CANTIDAD
                 doc.text(
-                    item.cantidad.toString(),
-                    187.5,
-                    y,
-                    { align: "center" }
-                );
+    item.cantidad.toString(),
+    167.5,
+    y,
+    { align: "center" }
+);
 
                 y += 8;
 
@@ -562,9 +554,9 @@ doc.line(10, y + 3, 200, y + 3);
 // líneas verticales
 doc.line(10, 57, 10, finTabla);
 doc.line(30, 57, 30, finTabla);
-doc.line(160, 57, 160, finTabla);
+doc.line(155, 57, 155, finTabla);
+doc.line(180, 57, 180, finTabla);
 doc.line(200, 57, 200, finTabla);
-doc.line(175, 57, 175, finTabla);
             }
 
             // FECHA ABAJO DERECHA
