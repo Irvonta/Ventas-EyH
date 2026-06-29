@@ -601,6 +601,11 @@ body{
 
 @media (max-width: 768px){
 
+main {
+    padding-top: 120px;
+     }  
+
+
     body{
         overflow-x:hidden;
     }
