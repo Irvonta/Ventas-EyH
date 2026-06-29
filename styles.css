@@ -29,10 +29,7 @@ header {
     z-index: 1000;     /* queda encima del contenido */
 }
 
-/* Ajuste para que el contenido no se tape */
-main {
-    padding-top: 100px; /* ajusta según la altura real del header */
-}
+
 
 
 header h1{
@@ -57,11 +54,11 @@ header h1{
 /* MAIN */
 
 main{
-
     width:100%;
-
-    padding:20px;
-
+    padding-top:220px;
+    padding-right:10px;
+    padding-bottom:10px;
+    padding-left:10px;
     box-sizing:border-box;
 }
 
@@ -284,10 +281,7 @@ main{
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Ajuste para que el contenido no se tape */
-main {
-  padding-top: 120px; /* ajusta según la altura real del header/topbar */
-}
+
 
 
 /* Logo grande y pegado a la izquierda */
@@ -485,9 +479,7 @@ body{
     box-sizing:border-box;
 }
 
-main{
-    width:100%;
-}
+
 
 #productos{
     width:100%;
@@ -672,9 +664,7 @@ main{
 
     /* PRODUCTOS */
 
-    main{
-        padding:10px;
-    }
+   
 
     #productos{
         display:grid;
@@ -730,8 +720,9 @@ main{
     }
 
    
-
-
+#contenido{
+    margin-top: 500px !important;
+}
 
 /* VOLVER A ESTE PUNTO*/
     
