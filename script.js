@@ -288,7 +288,7 @@ fetch("https://localhost:5001/api/email/enviar-pdf", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    destinatario: "cliente@example.com", // aquí puedes poner el correo del cliente
+    destinatario: "irvingdanielvalenzuelacardenas@gmail.com", // aquí puedes poner el correo del cliente
     pdfBase64: pdfOutput
   })
 })
@@ -438,7 +438,7 @@ function generarPDF(nombre, agente, carrito, subtotal, iva, total){
             );
 
             // HOJA
-            doc.setFontSize(20);
+            doc.setFontSize(18);
 
             doc.text(
                 `PEDIDO #${hojaActual}`,
@@ -457,7 +457,7 @@ function generarPDF(nombre, agente, carrito, subtotal, iva, total){
             );
 
             // AGENTE
-            doc.setFont(undefined, "normal");
+            doc.setFont(undefined, "bold");
             doc.setFontSize(12);
 
             doc.text(
@@ -472,28 +472,28 @@ function generarPDF(nombre, agente, carrito, subtotal, iva, total){
             doc.setFont(undefined, "bold");
 
             doc.text(
-                "CODIGO",
-                20,
+                "COD.",
+                17.7,
                 y,
                 { align: "center" }
             );
 
             doc.text(
                 "DESCRIPCION",
-                35,
+                27,
                 y
             );
 
             doc.text(
-    "CANT.",
-    168,
+    "CANT",
+    179,
     y,
     { align: "center" }
 );
 
 doc.text(
-    "SURT.",
-    190,
+    "SURT",
+    193,
     y,
     { align: "center" }
 );
@@ -508,7 +508,7 @@ doc.line(10, y + 3, 200, y + 3);
 
             doc.setFont(undefined, "normal");
 
-            y += 10;
+            y += 8;
 
             let filasActuales = 0;
 
@@ -522,7 +522,7 @@ doc.line(10, y + 3, 200, y + 3);
                 // CODIGO
                 doc.text(
                     item.codigo.toString(),
-                    20,
+                    17.5,
                     y,
                     { align: "center" }
                 );
@@ -530,14 +530,14 @@ doc.line(10, y + 3, 200, y + 3);
                 // DESCRIPCION
                 doc.text(
                     item.descripcion.substring(0,55),
-                    35,
+                    27,
                     y
                 );
 
                 // CANTIDAD
                 doc.text(
     item.cantidad.toString(),
-    167.5,
+    179,
     y,
     { align: "center" }
 );
@@ -553,9 +553,9 @@ doc.line(10, y + 3, 200, y + 3);
 
 // líneas verticales
 doc.line(10, 57, 10, finTabla);
-doc.line(30, 57, 30, finTabla);
-doc.line(155, 57, 155, finTabla);
-doc.line(180, 57, 180, finTabla);
+doc.line(25, 57, 25, finTabla);
+doc.line(172, 57, 172, finTabla);
+doc.line(186, 57, 186, finTabla);
 doc.line(200, 57, 200, finTabla);
             }
 
@@ -565,8 +565,8 @@ doc.line(200, 57, 200, finTabla);
 
             doc.text(
                 fechaVisible,
-                155,
-                285
+                166,
+                40
             );
 
             doc.setFont(undefined, "normal");
