@@ -628,3 +628,13 @@ function enviarPdfPorCorreo(destinatario) {
   .then(msg => console.log(msg))
   .catch(err => console.error(err));
 }
+
+
+
+
+//enter cerrar teclado movil
+document.getElementById("busqueda").addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    e.target.blur();
+  }
+});
