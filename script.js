@@ -1,3 +1,8 @@
+
+
+
+
+
 console.log("SCRIPT CARGADO");
 const productosDiv = document.getElementById("productos");
 const carritoDiv = document.getElementById("carrito-items");
